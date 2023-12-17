@@ -21,7 +21,9 @@ class ProductController extends Controller
         return view('products.create');
     }
     public function store(StoreValidateRequest $request){
-        $this->productservice->store($request->name, $request->description, $request->image);
+        $data = $request->only('name', 'description');
+        $data['image']=$this->productservice->setImage($request->image);
+        $product = Product::create($data);
         return back()->withSuccess('Product Created!!!');
     }
     public function edit($id){
@@ -29,7 +31,12 @@ class ProductController extends Controller
         return view('products.edit',[ 'product' => $product ]);
     }
     public function update(UpdateValidateRequest $request, $id){
-        $this->productservice->update($id, $request->name, $request->description, $request->image);
+        $data = $request->only('name', 'description');
+        if(isset($request->image)){
+            $data['image']=$this->productservice->setImage($request->image);
+        }
+        $product = Product::where('id',$id)->first();
+        $product->update($data);
         return back()->withSuccess('Product Updated!!!');
     }
     public function show($id){
