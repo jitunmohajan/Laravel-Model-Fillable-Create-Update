@@ -41,4 +41,8 @@
         {{ $products->links() }}
     </div>  
 
+    <div>
+      test git desktop
+    </div>
+
 @endsection
