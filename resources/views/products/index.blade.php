@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('main')
-
+  {{-- Main section Showing Table --}}
     <div class="container">
         <div class="text-right">
             <a href="/products/create" class="btn btn-dark mt-2">New Product</a>
